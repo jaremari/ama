@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="de.ama.MainActivity">
+
+    <Button
+        android:text="Audio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnNotes"
+        android:layout_alignLeft="@+id/btnNotes"
+        android:layout_alignStart="@+id/btnNotes"
+        android:layout_marginTop="65dp"
+        android:id="@+id/btnAudio" />
+
+    <Button
+        android:text="Pictures"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnAudio"
+        android:layout_alignLeft="@+id/btnAudio"
+        android:layout_alignStart="@+id/btnAudio"
+        android:layout_marginTop="61dp"
+        android:id="@+id/btnPictures" />
+
+    <Button
+        android:text="Notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:id="@+id/btnNotes"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
