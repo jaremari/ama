@@ -38,6 +38,7 @@ public class NotesActivity extends AppCompatActivity {
 
     private void InitializeApp(){
 
+        // Creates the folder for notes storage
         folder = new File(Environment.getExternalStorageDirectory(), "AMA-Notes");
         if(!folder.exists()){
             folder.mkdirs();

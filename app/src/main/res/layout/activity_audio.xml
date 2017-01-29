@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,40 +13,69 @@
         android:src="@mipmap/ic_launcher"
         android:id="@+id/logo"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true" /><![CDATA[
 
-    <Button
+    />
+
+
+
+    />
+
+
+
+
+
+
+
+    ]]>
+
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Record"
-        android:textSize="20sp"
-        android:id="@+id/record"
-        android:layout_below="@+id/logo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"/>
-        />
+        app:srcCompat="@android:drawable/ic_btn_speak_now"
+        android:layout_marginLeft="26dp"
+        android:layout_marginStart="26dp"
+        android:id="@+id/btnStartRecord"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/logo"
+        android:layout_toEndOf="@+id/logo"
+        android:layout_marginBottom="18dp" />
 
-    <Button
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Stop"
-        android:textSize="20sp"
-        android:id="@+id/stop"
-        android:layout_below="@+id/record"
-        android:layout_marginTop="30dp"
+        app:srcCompat="@android:drawable/ic_media_pause"
+        android:id="@+id/btnStopRecord"
+        android:layout_alignTop="@+id/btnStartRecord"
         android:layout_centerHorizontal="true" />
-        />
 
-    <Button
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Play"
-        android:textSize="20sp"
-        android:id="@+id/play"
-        android:layout_below="@+id/stop"
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true" />
-        />
+        app:srcCompat="@android:drawable/ic_media_play"
+        android:id="@+id/btnPlayAudio"
+        android:layout_marginRight="27dp"
+        android:layout_marginEnd="27dp"
+        android:layout_alignTop="@+id/btnStopRecord"
+        android:layout_toLeftOf="@+id/logo"
+        android:layout_toStartOf="@+id/logo" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+        android:layout_marginBottom="40dp"
+        android:id="@+id/btnStopAudio"
+        android:layout_above="@+id/btnPlayAudio"
+        android:layout_alignLeft="@+id/btnPlayAudio"
+        android:layout_alignStart="@+id/btnPlayAudio" />
+    <![CDATA[
 
 
+
+    />
+
+
+
+]]>
 </RelativeLayout>
