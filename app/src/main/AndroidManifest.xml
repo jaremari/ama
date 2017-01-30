@@ -24,10 +24,9 @@
         </activity>
         <activity android:name=".NotesActivity" />
         <activity android:name=".AudioActivity" />
-        <activity android:name=".PicturesActivity" />
         <activity android:name=".ShowNotesActivity" />
-        <activity android:name=".EditNotesActivity">
-        </activity>
+        <activity android:name=".EditNotesActivity" />
+        <activity android:name=".CameraIntentActivity" />
     </application>
 
 </manifest>

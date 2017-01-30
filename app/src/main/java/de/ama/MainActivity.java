@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v){
-                startPicturesActivity();
+                startCameraIntentActivity();
             }
         });
 
@@ -101,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this, AudioActivity.class));
     }
 
-    private void startPicturesActivity(){
-        startActivity(new Intent(MainActivity.this, PicturesActivity.class));
+    private void startCameraIntentActivity(){
+        startActivity(new Intent(MainActivity.this, CameraIntentActivity.class));
     }
 
     //Requesting Audio Record Permission
