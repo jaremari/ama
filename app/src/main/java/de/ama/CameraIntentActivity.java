@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +34,7 @@ public class CameraIntentActivity extends Activity {
     private File mGalleryFolder;
 
     private RecyclerView mRecyclerView;
+    private Button btnCamera;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -43,6 +45,14 @@ public class CameraIntentActivity extends Activity {
         StrictMode.setVmPolicy(builder.build());
 
         createImageGallery();
+
+        btnCamera = (Button)findViewById(R.id.btnCamera);
+        btnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CameraIntentActivity.this, VideoActivity.class));
+            }
+        });
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.galleryRecyclerView);

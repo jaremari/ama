@@ -13,21 +13,7 @@
         android:src="@mipmap/ic_launcher"
         android:id="@+id/logo"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" /><![CDATA[
-
-    />
-
-
-
-    />
-
-
-
-
-
-
-
-    ]]>
+        android:layout_centerHorizontal="true" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -69,13 +55,5 @@
         android:layout_above="@+id/btnPlayAudio"
         android:layout_alignLeft="@+id/btnPlayAudio"
         android:layout_alignStart="@+id/btnPlayAudio" />
-    <![CDATA[
 
-
-
-    />
-
-
-
-]]>
 </RelativeLayout>

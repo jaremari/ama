@@ -1,9 +1,14 @@
 package de.ama;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -13,7 +18,11 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 import static android.Manifest.permission.RECORD_AUDIO;
@@ -23,138 +32,175 @@ public class AudioActivity extends AppCompatActivity {
 
     private ImageButton btnPlayAudio, btnStopAudio, btnStartRecord, btnStopRecord;
     private MediaRecorder myAudioRecorder = null;
-    private String audioSavePathInDevice = null, randomAudioFilename = "ABCDEFGHIJKLMOP";
+    private String audioSavePathInDevice = null;
     private Random random;
     private MediaPlayer myAudioPlayer;
 
-    public static final int RequestPermissionCode = 1;
+    private String AUDIO_LOCATION = "AMA-Audio";
+    private File audioFileDir;
 
+    public static final int REQUEST_RECORD_CODE = 101;
 
         @Override
-        protected void onCreate (Bundle savedInstanceState){
+        protected void onCreate (Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_audio);
 
-            btnPlayAudio = (ImageButton) findViewById(R.id.btnPlayAudio);
-            btnStopAudio = (ImageButton) findViewById(R.id.btnStopAudio);
-            btnStopRecord = (ImageButton) findViewById(R.id.btnStopRecord);
-            btnStartRecord = (ImageButton) findViewById(R.id.btnStartRecord);
+            createAudioDirectory();
+            InitializeActivity();
 
             btnStopRecord.setEnabled(false);
             btnPlayAudio.setEnabled(false);
             btnStopAudio.setEnabled(false);
 
-            random = new Random();
-
-        btnStartRecord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (checkPermission()) {
-
-                    audioSavePathInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" +
-                            CreateRandomAudioFileName(5) + "AudioRecording.3gp";
-
-                    MediaRecorderReady();
-
-                    try {
-                        myAudioRecorder.prepare();
-                        myAudioRecorder.start();
-                    } catch (IllegalStateException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    btnStartRecord.setEnabled(false);
-                    btnStopRecord.setEnabled(true);
-
-                    Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_LONG).show();
-
-                } else {
-                    requestPermission();
+            btnStartRecord.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startRecord();
                 }
-            }
-        });
+            });
 
             btnStopRecord.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    myAudioRecorder.stop();
-
-                    btnStopRecord.setEnabled(false);
-                    btnPlayAudio.setEnabled(true);
-                    btnStartRecord.setEnabled(true);
-                    btnStopAudio.setEnabled(false);
-
-                    Toast.makeText(AudioActivity.this, "Recording completed", Toast.LENGTH_LONG).show();
-
+                    stopRecord();
                 }
             });
 
             btnPlayAudio.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) throws IllegalArgumentException, SecurityException, IllegalStateException {
-
-                    btnStopRecord.setEnabled(false);
-                    btnStartRecord.setEnabled(false);
-                    btnStopAudio.setEnabled(true);
-
-                    myAudioPlayer = new MediaPlayer();
-                    try {
-                        myAudioPlayer.setDataSource(audioSavePathInDevice);
-                        myAudioPlayer.prepare();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    myAudioPlayer.start();
-                    Toast.makeText(AudioActivity.this, "Playing last record", Toast.LENGTH_LONG).show();
+                    startPlayback();
                 }
             });
 
             btnStopAudio.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    btnStopRecord.setEnabled(false);
-                    btnStartRecord.setEnabled(true);
-                    btnStopAudio.setEnabled(false);
-                    btnPlayAudio.setEnabled(true);
-
-                    if (myAudioPlayer != null) {
-                        myAudioPlayer.stop();
-                        myAudioPlayer.release();
-                        MediaRecorderReady();
-                    }
+                    stopPlayback();
                 }
             });
         }
+
+    private void InitializeActivity(){
+
+        btnPlayAudio = (ImageButton) findViewById(R.id.btnPlayAudio);
+        btnStopAudio = (ImageButton) findViewById(R.id.btnStopAudio);
+        btnStopRecord = (ImageButton) findViewById(R.id.btnStopRecord);
+        btnStartRecord = (ImageButton) findViewById(R.id.btnStartRecord);
+
+        random = new Random();
+    }
+
+    private void startRecord(){
+
+        if (checkPermission()) {
+
+            audioSavePathInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + audioFileDir +
+                    CreateRandomAudioFileName();
+
+            MediaRecorderReady();
+
+            try {
+                myAudioRecorder.prepare();
+                myAudioRecorder.start();
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            btnStartRecord.setEnabled(false);
+            btnStopRecord.setEnabled(true);
+
+            Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_LONG).show();
+
+        } else {
+            requestPermission();
+        }
+    }
+
+    private void stopRecord(){
+        try {
+            myAudioRecorder.stop();
+        } catch (IllegalStateException e){
+            e.printStackTrace();
+        }
+
+        btnStopRecord.setEnabled(false);
+        btnPlayAudio.setEnabled(true);
+        btnStartRecord.setEnabled(true);
+        btnStopAudio.setEnabled(false);
+
+        Toast.makeText(AudioActivity.this, "Recording completed", Toast.LENGTH_LONG).show();
+    }
+
+    private void startPlayback(){
+
+        btnStopRecord.setEnabled(false);
+        btnStartRecord.setEnabled(false);
+        btnStopAudio.setEnabled(true);
+
+        myAudioPlayer = new MediaPlayer();
+        try {
+            myAudioPlayer.setDataSource(audioSavePathInDevice);
+            myAudioPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        myAudioPlayer.start();
+        Toast.makeText(AudioActivity.this, "Playing last record", Toast.LENGTH_LONG).show();
+    }
+
+    private void stopPlayback(){
+        btnStopRecord.setEnabled(false);
+        btnStartRecord.setEnabled(true);
+        btnStopAudio.setEnabled(false);
+        btnPlayAudio.setEnabled(true);
+
+        if (myAudioPlayer != null) {
+            myAudioPlayer.stop();
+            myAudioPlayer.release();
+            MediaRecorderReady();
+
+            Toast.makeText(AudioActivity.this, "Stopped playback", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void createAudioDirectory(){
+
+        File storageDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+        audioFileDir = new File(storageDirectory, AUDIO_LOCATION);
+        if(!audioFileDir.exists()){
+            audioFileDir.mkdirs();
+        }
+    }
+
     public void MediaRecorderReady() {
+
         myAudioRecorder = new MediaRecorder();
         myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         myAudioRecorder.setOutputFile(audioSavePathInDevice);
     }
 
-    public String CreateRandomAudioFileName(int string){
-        StringBuilder stringBuilder = new StringBuilder(string);
-        int i = 0;
-        while (i < string){
-            stringBuilder.append(randomAudioFilename.charAt(random.nextInt(randomAudioFilename.length())));
+    public String CreateRandomAudioFileName() {
 
-            i++;
-        }
-        return stringBuilder.toString();
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String audioFileName = timeStamp + ".3gp";
+
+        return audioFileName;
     }
 
-    private void requestPermission(){
-        ActivityCompat.requestPermissions(AudioActivity.this, new String[]{WRITE_EXTERNAL_STORAGE, RECORD_AUDIO}, RequestPermissionCode);
+    public void requestPermission(){
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.RECORD_AUDIO},
+                REQUEST_RECORD_CODE);
     }
 
-    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
-            case RequestPermissionCode:
+            case REQUEST_RECORD_CODE:
                 if (grantResults.length > 0) {
                     boolean StoragePermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     boolean RecordPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;

@@ -27,6 +27,7 @@
         <activity android:name=".ShowNotesActivity" />
         <activity android:name=".EditNotesActivity" />
         <activity android:name=".CameraIntentActivity" />
+        <activity android:name=".VideoActivity"/>
     </application>
 
 </manifest>
