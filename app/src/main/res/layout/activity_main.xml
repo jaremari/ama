@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -11,32 +12,54 @@
     tools:context="de.ama.MainActivity">
 
     <Button
-        android:text="Audio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnNotes"
-        android:layout_alignLeft="@+id/btnNotes"
-        android:layout_alignStart="@+id/btnNotes"
-        android:layout_marginTop="65dp"
-        android:id="@+id/btnAudio" />
-
-    <Button
-        android:text="Pictures"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnAudio"
-        android:layout_alignLeft="@+id/btnAudio"
-        android:layout_alignStart="@+id/btnAudio"
-        android:layout_marginTop="61dp"
-        android:id="@+id/btnPictures" />
-
-    <Button
         android:text="Notes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
         android:id="@+id/btnNotes"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:textSize="90sp"
+        android:fontFamily="monospace"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Audio"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:id="@+id/btnAudio"
+        android:fontFamily="monospace"
+        android:textSize="90sp"
+        android:layout_below="@+id/btnNotes"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Camera"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:id="@+id/btnPictures"
+        android:textSize="90sp"
+        android:fontFamily="monospace"
+        android:layout_below="@+id/btnAudio"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_height="120dp"
+        app:srcCompat="@mipmap/ic_launcher"
+        android:id="@+id/imageView2"
+        android:layout_width="120dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="AMA"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:id="@+id/textView"
+        android:textSize="110sp"
+        android:fontFamily="monospace"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

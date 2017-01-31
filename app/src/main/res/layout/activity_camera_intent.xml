@@ -5,26 +5,31 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/galleryRecyclerView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/photoButton"/>
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/photoButton" />
 
     <Button
-        android:text="Take Photo"
+        android:text="Photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/photoButton"
         android:onClick="takePhoto"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/galleryRecyclerView" />
+        android:layout_alignParentEnd="true"
+        android:textSize="28sp"
+        android:fontFamily="monospace" />
 
     <Button
-        android:text="Take Video"
+        android:text="Video"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/galleryRecyclerView"
-        android:id="@+id/btnCamera" />
+        android:layout_alignParentStart="true"
+        android:id="@+id/btnCamera"
+        android:textSize="28sp"
+        android:fontFamily="monospace" />
 
 </RelativeLayout>

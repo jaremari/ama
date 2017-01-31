@@ -6,15 +6,6 @@
     android:layout_height="match_parent"
     tools:context="de.ama.AudioActivity">
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="30dp"
-        android:src="@mipmap/ic_launcher"
-        android:id="@+id/logo"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,8 +23,9 @@
         android:layout_height="wrap_content"
         app:srcCompat="@android:drawable/ic_media_pause"
         android:id="@+id/btnStopRecord"
+        android:layout_marginEnd="21dp"
         android:layout_alignTop="@+id/btnStartRecord"
-        android:layout_centerHorizontal="true" />
+        android:layout_toStartOf="@+id/btnStartRecord" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -41,19 +33,26 @@
         app:srcCompat="@android:drawable/ic_media_play"
         android:id="@+id/btnPlayAudio"
         android:layout_marginRight="27dp"
-        android:layout_marginEnd="27dp"
         android:layout_alignTop="@+id/btnStopRecord"
-        android:layout_toLeftOf="@+id/logo"
-        android:layout_toStartOf="@+id/logo" />
+        android:layout_alignStart="@+id/logo"
+        android:layout_marginStart="24dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
-        android:layout_marginBottom="40dp"
         android:id="@+id/btnStopAudio"
-        android:layout_above="@+id/btnPlayAudio"
-        android:layout_alignLeft="@+id/btnPlayAudio"
-        android:layout_alignStart="@+id/btnPlayAudio" />
+        android:layout_alignTop="@+id/btnPlayAudio"
+        android:layout_toStartOf="@+id/logo"
+        android:layout_marginEnd="17dp" />
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="109dp"
+        android:src="@mipmap/ic_launcher"
+        android:id="@+id/logo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
